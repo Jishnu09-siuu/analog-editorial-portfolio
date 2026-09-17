@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)https://lab.chakibmzn.com/35mm/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="icon" type="image/svg+xml" href="https://lab.chakibmzn.com/favicon.svg"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="generator" content="Astro v6.0.4"><title>Julian Vance — Analog & Editorial Photography</title><meta name="description" content="Personal portfolio of Julian Vance, capturing timeless human stories and cinematic light through 35mm mechanical cameras and handcrafted film stocks."><style>.lil-gui {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: 1;
+  font-weight: normal;
+  font-style: normal;
+  text-align: left;
+  color: var(--text-color);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  --background-color: #1f1f1f;
+  --text-color: #ebebeb;
+  --title-background-color: #111111;
+  --title-text-color: #ebebeb;
+  --widget-color: #424242;
+  --hover-color: #4f4f4f;
+  --focus-color: #595959;
+  --number-color: #2cc9ff;
+  --string-color: #a2db3c;
+  --font-size: 11px;
+  --input-font-size: 11px;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-family-mono: Menlo, Monaco, Consolas, "Droid Sans Mono", monospace;
+  --padding: 4px;
+  --spacing: 4px;
+  --widget-height: 20px;
+  --title-height: calc(var(--widget-height) + var(--spacing) * 1.25);
+  --name-width: 45%;
+  --slider-knob-width: 2px;
+  --slider-input-width: 27%;
+  --color-input-width: 27%;
+  --slider-input-min-width: 45px;
+  --color-input-min-width: 45px;
+  --folder-indent: 7px;
+  --widget-padding: 0 0 0 3px;
+  --widget-border-radius: 2px;
+  --checkbox-size: calc(0.75 * var(--widget-height));
+  --scrollbar-width: 5px;
+}
+.lil-gui, .lil-gui * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.lil-gui.root {
+  width: var(--width, 245px);
+  display: flex;
+  flex-direction: column;
+  background: var(--background-color);
+}
+.lil-gui.root > .title {
+  background: var(--title-background-color);
+  color: var(--title-text-color);
+}
+.lil-gui.root > .children {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.lil-gui.root > .children::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+  background: var(--background-color);
+}
+.lil-gui.root > .children::-webkit-scrollbar-thumb {
+  border-radius: var(--scrollbar-width);
+  background: var(--focus-color);
+}
+@media (pointer: coarse) {
+  .lil-gui.allow-touch-styles, .lil-gui.allow-touch-styles .lil-gui {
+    --widget-height: 28px;
+    --padding: 6px;
+    --spacing: 6px;
+    --font-size: 13px;
+    --input-font-size: 16px;
+    --folder-indent: 10px;
+    --scrollbar-width: 7px;
+    --slider-input-min-width: 50px;
+    --color-input-min-width: 65px;
+  }
+}
+.lil-gui.force-touch-styles, .lil-gui.force-touch-styles .lil-gui {
+  --widget-height: 28px;
+  --padding: 6px;
+  --spacing: 6px;
+  --font-size: 13px;
+  --input-font-size: 16px;
+  --folder-indent: 10px;
+  --scrollbar-width: 7px;
+  --slider-input-min-width: 50px;
+  --color-input-min-width: 65px;
+}
+.lil-gui.autoPlace {
+  max-height: 100%;
+  position: fixed;
+  top: 0;
+  right: 15px;
+  z-index: 1001;
+}
+
+.lil-gui .controller {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--padding);
+  margin: var(--spacing) 0;
+}
+.lil-gui .controller.disabled {
+  opacity: 0.5;
+}
+.lil-gui .controller.disabled, .lil-gui .controller.disabled * {
+  pointer-events: none !important;
+}
+.lil-gui .controller > .name {
+  min-width: var(--name-width);
+  flex-shrink: 0;
+  white-space: pre;
+  padding-right: var(--spacing);
+  line-height: var(--widget-height);
+}
+.lil-gui .controller .widget {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: var(--widget-height);
+}
+.lil-gui .controller.string input {
+  color: var(--string-color);
+}
+.lil-gui .controller.boolean {
+  cursor: pointer;
+}
+.lil-gui .controller.color .display {
+  width: 100%;
+  height: var(--widget-height);
+  border-radius: var(--widget-border-radius);
+  position: relative;
+}
+@media (hover: hover) {
+  .lil-gui .controller.color .display:hover:before {
+    content: " ";
+    display: block;
+    position: absolute;
+    border-radius: var(--widget-border-radius);
+    border: 1px solid #fff9;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+.lil-gui .controller.color input[type=color] {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.lil-gui .controller.color input[type=text] {
+  margin-left: var(--spacing);
+  font-family: var(--font-family-mono);
+  min-width: var(--color-input-min-width);
+  width: var(--color-input-width);
+  flex-shrink: 0;
+}
+.lil-gui .controller.option select {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  max-width: 100%;
+}
+.lil-gui .controller.option .display {
+  position: relative;
+  pointer-events: none;
+  border-radius: var(--widget-border-radius);
+  height: var(--widget-height);
+  line-height: var(--widget-height);
+  max-width: 100%;
+  overflow: hidden;
+  word-break: break-all;
+  padding-left: 0.55em;
+  padding-right: 1.75em;
+  background: var(--widget-color);
+}
+@media (hover: hover) {
+  .lil-gui .controller.option .display.focus {
+    background: var(--focus-color);
+  }
+}
+.lil-gui .controller.option .display.active {
+  background: var(--focus-color);
+}
+.lil-gui .controller.option .display:after {
+  font-family: "lil-gui";
+  content: "↕";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding-right: 0.375em;
+}
+.lil-gui .controller.option .widget,
+.lil-gui .controller.option select {
+  cursor: pointer;
+}
+@media (hover: hover) {
+  .lil-gui .controller.option .widget:hover .display {
+    background: var(--hover-color);
+  }
+}
+.lil-gui .controller.number input {
+  color: var(--number-color);
+}
+.lil-gui .controller.number.hasSlider input {
+  margin-left: var(--spacing);
+  width: var(--slider-input-width);
+  min-width: var(--slider-input-min-width);
+  flex-shrink: 0;
+}
+.lil-gui .controller.number .slider {
+  width: 100%;
+  height: var(--widget-height);
+  background: var(--widget-color);
+  border-radius: var(--widget-border-radius);
+  padding-right: var(--slider-knob-width);
+  overflow: hidden;
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+@media (hover: hover) {
+  .lil-gui .controller.number .slider:hover {
+    background: var(--hover-color);
+  }
+}
+.lil-gui .controller.number .slider.active {
+  background: var(--focus-color);
+}
+.lil-gui .controller.number .slider.active .fill {
+  opacity: 0.95;
+}
+.lil-gui .controller.number .fill {
+  height: 100%;
+  border-right: var(--slider-knob-width) solid var(--number-color);
+  box-sizing: content-box;
+}
+
+.lil-gui-dragging .lil-gui {
+  --hover-color: var(--widget-color);
+}
+.lil-gui-dragging * {
+  cursor: ew-resize !important;
+}
+
+.lil-gui-dragging.lil-gui-vertical * {
+  cursor: ns-resize !important;
+}
+
+.lil-gui .title {
+  height: var(--title-height);
+  line-height: calc(var(--title-height) - 4px);
+  font-weight: 600;
+  padding: 0 var(--padding);
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  outline: none;
+  text-decoration-skip: objects;
+}
+.lil-gui .title:before {
+  font-family: "lil-gui";
+  content: "▾";
+  padding-right: 2px;
+  display: inline-block;
+}
+.lil-gui .title:active {
+  background: var(--title-background-color);
+  opacity: 0.75;
+}
+@media (hover: hover) {
+  body:not(.lil-gui-dragging) .lil-gui .title:hover {
+    background: var(--title-background-color);
+    opacity: 0.85;
+  }
+  .lil-gui .title:focus {
+    text-decoration: underline var(--focus-color);
+  }
+}
+.lil-gui.root > .title:focus {
+  text-decoration: none !important;
+}
+.lil-gui.closed > .title:before {
+  content: "▸";
+}
+.lil-gui.closed > .children {
+  transform: translateY(-7px);
+  opacity: 0;
+}
+.lil-gui.closed:not(.transition) > .children {
+  display: none;
+}
+.lil-gui.transition > .children {
+  transition-duration: 300ms;
+  transition-property: height, opacity, transform;
+  transition-timing-function: cubic-bezier(0.2, 0.6, 0.35, 1);
+  overflow: hidden;
+  pointer-events: none;
+}
+.lil-gui .children:empty:before {
+  content: "Empty";
+  padding: 0 var(--padding);
+  margin: var(--spacing) 0;
+  display: block;
+  height: var(--widget-height);
+  font-style: italic;
+  line-height: var(--widget-height);
+  opacity: 0.5;
+}
+.lil-gui.root > .children > .lil-gui > .title {
+  border: 0 solid var(--widget-color);
+  border-width: 1px 0;
+  transition: border-color 300ms;
+}
+.lil-gui.root > .children > .lil-gui.closed > .title {
+  border-bottom-color: transparent;
+}
+.lil-gui + .controller {
+  border-top: 1px solid var(--widget-color);
+  margin-top: 0;
+  padding-top: var(--spacing);
+}
+.lil-gui .lil-gui .lil-gui > .title {
+  border: none;
+}
+.lil-gui .lil-gui .lil-gui > .children {
+  border: none;
+  margin-left: var(--folder-indent);
+  border-left: 2px solid var(--widget-color);
+}
+.lil-gui .lil-gui .controller {
+  border: none;
+}
+
+.lil-gui label, .lil-gui input, .lil-gui button {
+  -webkit-tap-highlight-color: transparent;
+}
+.lil-gui input {
+  border: 0;
+  outline: none;
+  font-family: var(--font-family);
+  font-size: var(--input-font-size);
+  border-radius: var(--widget-border-radius);
+  height: var(--widget-height);
+  background: var(--widget-color);
+  color: var(--text-color);
+  width: 100%;
+}
+@media (hover: hover) {
+  .lil-gui input:hover {
+    background: var(--hover-color);
+  }
+  .lil-gui input:active {
+    background: var(--focus-color);
+  }
+}
+.lil-gui input:disabled {
+  opacity: 1;
+}
+.lil-gui input[type=text],
+.lil-gui input[type=number] {
+  padding: var(--widget-padding);
+  -moz-appearance: textfield;
+}
+.lil-gui input[type=text]:focus,
+.lil-gui input[type=number]:focus {
+  background: var(--focus-color);
+}
+.lil-gui input[type=checkbox] {
+  appearance: none;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  border-radius: var(--widget-border-radius);
+  text-align: center;
+  cursor: pointer;
+}
+.lil-gui input[type=checkbox]:checked:before {
+  font-family: "lil-gui";
+  content: "✓";
+  font-size: var(--checkbox-size);
+  line-height: var(--checkbox-size);
+}
+@media (hover: hover) {
+  .lil-gui input[type=checkbox]:focus {
+    box-shadow: inset 0 0 0 1px var(--focus-color);
+  }
+}
+.lil-gui button {
+  outline: none;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  color: var(--text-color);
+  width: 100%;
+  height: var(--widget-height);
+  text-transform: none;
+  background: var(--widget-color);
+  border-radius: var(--widget-border-radius);
+  border: none;
+}
+@media (hover: hover) {
+  .lil-gui button:hover {
+    background: var(--hover-color);
+  }
+  .lil-gui button:focus {
+    box-shadow: inset 0 0 0 1px var(--focus-color);
+  }
+}
+.lil-gui button:active {
+  background: var(--focus-color);
+}
+
+@font-face {
+  font-family: "lil-gui";
+  src: url("data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAUsAAsAAAAACJwAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAAH4AAADAImwmYE9TLzIAAAGIAAAAPwAAAGBKqH5SY21hcAAAAcgAAAD0AAACrukyyJBnbHlmAAACvAAAAF8AAACEIZpWH2hlYWQAAAMcAAAAJwAAADZfcj2zaGhlYQAAA0QAAAAYAAAAJAC5AHhobXR4AAADXAAAABAAAABMAZAAAGxvY2EAAANsAAAAFAAAACgCEgIybWF4cAAAA4AAAAAeAAAAIAEfABJuYW1lAAADoAAAASIAAAIK9SUU/XBvc3QAAATEAAAAZgAAAJCTcMc2eJxVjbEOgjAURU+hFRBK1dGRL+ALnAiToyMLEzFpnPz/eAshwSa97517c/MwwJmeB9kwPl+0cf5+uGPZXsqPu4nvZabcSZldZ6kfyWnomFY/eScKqZNWupKJO6kXN3K9uCVoL7iInPr1X5baXs3tjuMqCtzEuagm/AAlzQgPAAB4nGNgYRBlnMDAysDAYM/gBiT5oLQBAwuDJAMDEwMrMwNWEJDmmsJwgCFeXZghBcjlZMgFCzOiKOIFAB71Bb8AeJy1kjFuwkAQRZ+DwRAwBtNQRUGKQ8OdKCAWUhAgKLhIuAsVSpWz5Bbkj3dEgYiUIszqWdpZe+Z7/wB1oCYmIoboiwiLT2WjKl/jscrHfGg/pKdMkyklC5Zs2LEfHYpjcRoPzme9MWWmk3dWbK9ObkWkikOetJ554fWyoEsmdSlt+uR0pCJR34b6t/TVg1SY3sYvdf8vuiKrpyaDXDISiegp17p7579Gp3p++y7HPAiY9pmTibljrr85qSidtlg4+l25GLCaS8e6rRxNBmsnERunKbaOObRz7N72ju5vdAjYpBXHgJylOAVsMseDAPEP8LYoUHicY2BiAAEfhiAGJgZWBgZ7RnFRdnVJELCQlBSRlATJMoLV2DK4glSYs6ubq5vbKrJLSbGrgEmovDuDJVhe3VzcXFwNLCOILB/C4IuQ1xTn5FPilBTj5FPmBAB4WwoqAHicY2BkYGAA4sk1sR/j+W2+MnAzpDBgAyEMQUCSg4EJxAEAwUgFHgB4nGNgZGBgSGFggJMhDIwMqEAYAByHATJ4nGNgAIIUNEwmAABl3AGReJxjYAACIQYlBiMGJ3wQAEcQBEV4nGNgZGBgEGZgY2BiAAEQyQWEDAz/wXwGAAsPATIAAHicXdBNSsNAHAXwl35iA0UQXYnMShfS9GPZA7T7LgIu03SSpkwzYTIt1BN4Ak/gKTyAeCxfw39jZkjymzcvAwmAW/wgwHUEGDb36+jQQ3GXGot79L24jxCP4gHzF/EIr4jEIe7wxhOC3g2TMYy4Q7+Lu/SHuEd/ivt4wJd4wPxbPEKMX3GI5+DJFGaSn4qNzk8mcbKSR6xdXdhSzaOZJGtdapd4vVPbi6rP+cL7TGXOHtXKll4bY1Xl7EGnPtp7Xy2n00zyKLVHfkHBa4IcJ2oD3cgggWvt/V/FbDrUlEUJhTn/0azVWbNTNr0Ens8de1tceK9xZmfB1CPjOmPH4kitmvOubcNpmVTN3oFJyjzCvnmrwhJTzqzVj9jiSX911FjeAAB4nG3HMRKCMBBA0f0giiKi4DU8k0V2GWbIZDOh4PoWWvq6J5V8If9NVNQcaDhyouXMhY4rPTcG7jwYmXhKq8Wz+p762aNaeYXom2n3m2dLTVgsrCgFJ7OTmIkYbwIbC6vIB7WmFfAAAA==") format("woff");
+}</style><link rel="stylesheet" href="./index.css?v=3">
+<style id="film-layers-pop-style">
+  /* Film Layers Portfolio Photo Pop-Up Animation */
+  #section-film-layers:not(.layers-all-shown) [data-layer-image],
+  #section-film-layers:not(.layers-all-shown) .film-layer-card {
+    pointer-events: none !important;
+  }
+
+  #section-film-layers.layers-all-shown {
+    pointer-events: auto !important;
+  }
+
+  #section-film-layers .design-grid {
+    position: relative;
+  }
+
+  .film-layer-card {
+    position: relative;
+    transition: z-index 0s;
+  }
+
+  #section-film-layers.layers-all-shown .film-layer-card {
+    cursor: pointer;
+    pointer-events: auto !important;
+  }
+
+  #section-film-layers.layers-all-shown .film-layer-card:hover,
+  #section-film-layers.layers-all-shown .film-layer-card.is-active {
+    z-index: 9999 !important;
+  }
+
+  #section-film-layers [data-layer-image] {
+    position: relative;
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1), 
+                filter 0.4s ease !important;
+    transform-origin: center center !important;
+    will-change: transform, box-shadow;
+    border: none !important;
+    outline: none !important;
+    border-radius: 4px;
+    overflow: visible;
+  }
+
+  #section-film-layers [data-layer-image] img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.4s ease, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    display: block;
+    border: none !important;
+    outline: none !important;
+    border-radius: 4px;
+  }
+
+  /* Hover Pop-up State: ONLY when all layers are shown side-by-side. NO BORDERS. */
+  #section-film-layers.layers-all-shown .film-layer-card:hover [data-layer-image],
+  #section-film-layers.layers-all-shown .film-layer-card.is-active [data-layer-image],
+  #section-film-layers.layers-all-shown [data-layer-image]:hover {
+    transform: translateY(-35px) rotate(0deg) skew(0deg, 0deg) scale(3.2) !important;
+    transform-origin: center center !important;
+    z-index: 10000 !important;
+    opacity: 1 !important;
+    cursor: pointer;
+    border: none !important;
+    outline: none !important;
+    border-radius: 4px !important;
+    box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.95), 
+                0 0 50px rgba(191, 109, 21, 0.7) !important;
+  }
+
+  #section-film-layers.layers-all-shown .film-layer-card:hover [data-layer-image] img,
+  #section-film-layers.layers-all-shown .film-layer-card.is-active [data-layer-image] img,
+  #section-film-layers.layers-all-shown [data-layer-image]:hover img {
+    border: none !important;
+    outline: none !important;
+    border-radius: 4px !important;
+    filter: brightness(1.08) contrast(1.05) !important;
+  }
+
+  /* Ensure first card doesn't clip left edge and last card doesn't clip right edge */
+  #section-film-layers.layers-all-shown .film-layer-card:first-child:hover [data-layer-image],
+  #section-film-layers.layers-all-shown .film-layer-card:first-child.is-active [data-layer-image] {
+    transform-origin: left center !important;
+  }
+
+  #section-film-layers.layers-all-shown .film-layer-card:last-child:hover [data-layer-image],
+  #section-film-layers.layers-all-shown .film-layer-card:last-child.is-active [data-layer-image] {
+    transform-origin: right center !important;
+  }
+
+  /* Accompanying caption and dashed line highlighting */
+  #section-film-layers.layers-all-shown .film-layer-card:hover [data-layer-text],
+  #section-film-layers.layers-all-shown .film-layer-card.is-active [data-layer-text] {
+    opacity: 1 !important;
+  }
+
+  #section-film-layers.layers-all-shown .film-layer-card:hover [data-layer-text] p,
+  #section-film-layers.layers-all-shown .film-layer-card.is-active [data-layer-text] p {
+    color: #ffffff !important;
+    text-shadow: 0 0 16px rgba(191, 109, 21, 0.95), 0 0 4px #bf6d15;
+    transform: translateY(-4px);
+    transition: transform 0.4s ease, color 0.4s ease, text-shadow 0.4s ease;
+  }
+
+  #section-film-layers.layers-all-shown .film-layer-card:hover [data-layer-text] div,
+  #section-film-layers.layers-all-shown .film-layer-card.is-active [data-layer-text] div {
+    border-color: rgba(191, 109, 21, 0.95) !important;
+    transition: border-color 0.4s ease;
+  }
+
+  /* Mobile responsive scaling */
+  @media screen and (max-width: 767px) {
+    #section-film-layers.layers-all-shown .film-layer-card:hover [data-layer-image],
+    #section-film-layers.layers-all-shown .film-layer-card.is-active [data-layer-image],
+    #section-film-layers.layers-all-shown [data-layer-image]:hover {
+      transform: translateY(-60px) rotate(0deg) skew(0deg, 0deg) scale(2.6) !important;
+    }
+  }
+</style>
+</head> <body> <div id="scroll-container" class="h-[100dvh] overflow-y-scroll relative lenis"> <div id="scroll-content" class="relative">  <div data-scrollable-content=""> <div class="fixed w-full h-full z-50 design-grid px-[var(--grid-gap)] invisible pointer-events-none" id="design-grid"> <div class="border-x border-dark2/50 h-full"></div> <div class="border-x border-dark2/50 h-full"></div> <div class="border-x border-dark2/50 h-full"></div> <div class="border-x border-dark2/50 h-full"></div> <div class="border-x border-dark2/50 h-full"></div> <div class="border-x border-dark2/50 h-full"></div> <div class="border-x border-dark2/50 h-full"></div> <div class="border-x border-dark2/50 h-full"></div> <div class="border-x border-dark2/50 h-full"></div> <div class="border-x border-dark2/50 h-full"></div> <div class="border-x border-dark2/50 h-full"></div> <div class="border-x border-dark2/50 h-full"></div> </div> <div class="fixed inset-0 p-[calc(var(--s)*20)] z-[100] pointer-events-none font-inter"> <div class="w-full h-full relative p-[calc(var(--s)*16)] text-sm lg:text-xsm text-dark2 flex justify-between items-start"> <div> <p id="fps-count">60fps</p> <p id="resolution">1536x695</p> </div> <div class="flex gap-[calc(var(--s)*8)] items-center"> <div class="h-[calc(var(--s)*8)] w-[calc(var(--s)*8)] rounded-full bg-orange1"></div> <p id="timer">00:00:34</p> </div> <div class="border-dark2 h-[calc(var(--s)*32)] w-[calc(var(--s)*32)] absolute border-t border-l top-0 left-0"></div> <div class="border-dark2 h-[calc(var(--s)*32)] w-[calc(var(--s)*32)] absolute border-r border-t top-0 right-0"></div> <div class="border-dark2 h-[calc(var(--s)*32)] w-[calc(var(--s)*32)] absolute border-l border-b bottom-0 left-0"></div> <div class="border-dark2 h-[calc(var(--s)*32)] w-[calc(var(--s)*32)] absolute border-b border-r bottom-0 right-0"></div> <div id="scroller" class="absolute bottom-0 left-[50%] translate-x-[-50%] flex flex-col items-center gap-[calc(var(--s)*12)]"> <div class="w-full h-[calc(var(--s)*8)] relative"> <div class="w-[calc(100%-var(--s)*8+2px)] absolute h-full top-0"> <span style="visibility: inherit; opacity: 1; left: 0.0041774%;" id="scroller-cursor" class="block w-0 h-0 border-l-[calc(var(--s)*4)] absolute left-[0] translate-x-[-50%] top-0 border-l-[transparent] border-r-[transparent] border-r-[calc(var(--s)*4)] border-t-[calc(var(--s)*8)] border-t-dark2"></span> </div> </div> <div class="flex items-end"> <span style="visibility: inherit; opacity: 1;" data-scroller-pin="" class="block w-[calc(var(--s)*8)] border-l border-dark2 h-[calc(var(--s)*16)]"></span>
+        <span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span style="visibility: inherit; opacity: 1;" data-scroller-pin="" class="block w-[calc(var(--s)*8)] border-l border-dark2 h-[calc(var(--s)*16)]"></span>
+        <span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span style="visibility: inherit; opacity: 1;" data-scroller-pin="" class="block w-[calc(var(--s)*8)] border-l border-dark2 h-[calc(var(--s)*16)]"></span>
+        <span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span style="visibility: inherit; opacity: 1;" data-scroller-pin="" class="block w-[calc(var(--s)*8)] border-l border-dark2 h-[calc(var(--s)*16)]"></span>
+        <span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span><span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*8)] border-l border-dark2"></span> <span data-scroller-pin="" style="visibility: inherit; opacity: 1;" class="block w-[calc(var(--s)*8)] h-[calc(var(--s)*16)] border-l border-dark2"></span> </div> </div> </div> </div> <div class="absolute w-full z-[5] px-[calc(var(--s)*20)]"> <div class="h-[700vh] p-[calc(var(--s)*20)] relative flex flex-col"> <div class="h-[450vh]"> <div class="h-[250vh]"> <div class="pt-[calc(var(--s)*100)] flex-1"> <span class="uppercase w-full font-bold text-[10.7vw] md:text-[11.4vw] leading-[100%] tracking-tighter flex justify-between text-[white] whitespace-nowrap" data-animation="title" aria-label="Julian Vance">Julian Vance</span> <div class="mt-[30vmax]"> <!-- <div class={clsx("design-grid", behindCanvas && "invisible")}>
+    <div
+      class="col-start-2 md:col-end-4 col-end-6 text-md md:text-body text-light1"
+      data-animation={behindCanvas ? undefined : "paragraph"}
+    >
+      <p>
+        In September 1971, Canon released the F-1, forever changing the
+        landscape of professional photography. This flagship SLR camera
+        represented Canon's bold entry into the professional market, challenging
+        the dominance of Nikon with extraordinary build quality, reliability,
+        and a comprehensive system of interchangeable components.
+      </p>
+    </div>
+  </div> --> <div class="flex flex-col gap-[calc(var(--s)*300)] md:gap-[calc(var(--s)*400)]" data-top-cover-parts-section="true"> <div class="design-grid w-full"> <div class="text-body text-light1 row-start-1 row-end-2 relative col-start-2 col-end-6 md:col-end-4 invisible"> <p class="w-full sm:absolute top-0 left-0">Rooted in the tactile discipline of analog photography, my work celebrates unscripted human emotion, natural light, and quiet permanence. Through all-mechanical bodies and vintage prime glass, every shutter actuation is a deliberate commitment to seeing the world without digital noise.</p> </div> <div class="text-sm text-orange1 row-start-1 row-end-2 font-inter font-semibold col-start-7 col-end-13 md:col-end-12"> <span data-top-cover-part="pentaprism" class="flex items-center capitalize w-full opacity-0 transition-opacity duration-300 gap-[calc(var(--s)*20)]"> <span class="block border-b border-dashed border-dark2 flex-1 h-[1px]"></span> <span class="block">pentaprism</span>  </span> </div> </div><div class="design-grid w-full mt-[calc(var(--s)*100)]"> <div class="text-body text-light1 row-start-1 row-end-2 relative col-start-8 md:col-start-10 col-end-13 md:col-end-12 invisible mt-[calc(var(--s)*64)] md:mt-0"> <p class="w-full sm:absolute top-0 left-0">Based between Tokyo and London, I specialize in editorial portraiture, street documentary, and architectural studies worldwide. Guided by classical darkroom craftsmanship and patient observation, I create enduring visual narratives designed to outlast transient digital trends.</p> </div> <div class="text-sm text-orange1 row-start-1 row-end-2 font-inter font-semibold col-start-1 md:col-start-2 col-end-7"> <span data-top-cover-part="focus_screen" class="flex items-center capitalize w-full opacity-0 transition-opacity duration-300 gap-[calc(var(--s)*20)]">  <span class="block">focus screen</span> <span class="block border-b border-dashed border-dark2 flex-1 h-[1px]"></span> </span> </div> </div><div class="design-grid w-full">  <div class="text-sm text-orange1 row-start-1 row-end-2 font-inter font-semibold col-start-1 md:col-start-2 col-end-7"> <span data-top-cover-part="focus_screen_box" class="flex items-center capitalize w-full opacity-0 transition-opacity duration-300 gap-[calc(var(--s)*20)]">  <span class="block">focus screen box</span> <span class="block border-b border-dashed border-dark2 flex-1 h-[1px]"></span> </span> </div> </div> </div> </div> </div> </div> </div> </div> <div class="h-[100vh]"></div> <section class="px-[var(--grid-gap)]"> <div class="design-grid text-body text-light1 h-full pb-[10vmax] gap-y-[calc(var(--s)*120)] md:gap-y-0 invisible"> <div class="md:col-start-2 md:col-end-5 col-start-1 col-end-7 row-start-1" data-animation-threshold="-100px"> <p>
+Film demands anticipation. With thirty-six frames per roll and no digital preview screen, analog photography requires complete presence with the subject. Each frame is an archival physical record formed by silver halide crystals responding to living light.
+</p> </div> <div class="col-start-7 col-end-13 md:col-start-9 md:col-end-12 row-start-2"> <div class="flex flex-col gap-[calc(var(--s)*60)]"> <div data-animation-threshold="-100px"> <p>
+Every project dictates its own emulsion. From the gentle skin tones of Kodak Portra to the dramatic silver grain of Ilford HP5, my choice of film stock establishes the color grade and emotional climate of each commission before shooting even begins.
+</p> </div> <div class="flex flex-col text-sm col-start-1 col-end-5"> <div class="grid grid-cols-5 py-[calc(var(--s)*20)] font-semibold font-inter"> <p class="col-start-2 col-end-5">Commission Style / Stock</p> <p class="col-start-5 col-end-6 justify-self-end">ISO</p> </div> <div class="relative"> <div class="absolute top-0 left-0 w-full h-[1px] bg-dark2"></div> <div class="relative py-[calc(var(--s)*20)] grid grid-cols-5 items-center"> <p class="text-sm col-start-1 col-end-2 text-dark2"> 01.
+</p> <p class="col-start-2 col-end-5">Editorial Portraits • Portra 400</p> <p class="col-start-5 col-end-6 justify-self-end"> 400 </p> <div class="absolute bottom-0 left-0 w-full h-[1px] bg-dark2"></div> </div><div class="relative py-[calc(var(--s)*20)] grid grid-cols-5 items-center"> <p class="text-sm col-start-1 col-end-2 text-dark2"> 02.
+</p> <p class="col-start-2 col-end-5">Monochrome Street • HP5 Plus</p> <p class="col-start-5 col-end-6 justify-self-end"> 400 </p> <div class="absolute bottom-0 left-0 w-full h-[1px] bg-dark2"></div> </div><div class="relative py-[calc(var(--s)*20)] grid grid-cols-5 items-center"> <p class="text-sm col-start-1 col-end-2 text-dark2"> 03.
+</p> <p class="col-start-2 col-end-5">Landscape & Fine Art • Ektar 100</p> <p class="col-start-5 col-end-6 justify-self-end"> 100 </p> <div class="absolute bottom-0 left-0 w-full h-[1px] bg-dark2"></div> </div><div class="relative py-[calc(var(--s)*20)] grid grid-cols-5 items-center"> <p class="text-sm col-start-1 col-end-2 text-dark2"> 04.
+</p> <p class="col-start-2 col-end-5">Documentary & Travel • Superia 400</p> <p class="col-start-5 col-end-6 justify-self-end"> 400 </p> <div class="absolute bottom-0 left-0 w-full h-[1px] bg-dark2"></div> </div><div class="relative py-[calc(var(--s)*20)] grid grid-cols-5 items-center"> <p class="text-sm col-start-1 col-end-2 text-dark2"> 05.
+</p> <p class="col-start-2 col-end-5">Twilight & Nocturne • CineStill 800T</p> <p class="col-start-5 col-end-6 justify-self-end"> 800 </p> <div class="absolute bottom-0 left-0 w-full h-[1px] bg-dark2"></div> </div> </div> </div> </div> </div> <div class="col-start-1 col-end-7 md:col-start-2 md:col-end-5 row-start-3 md:row-start-2 md:mt-[30vmax]" data-animation-threshold="-100px"> <p>
+Every photograph is a delicate synthesis of light, intention, and chemistry. From the silent canals of Venice to the nocturnal glow of Kyoto, each frame represents an archival dedication to analog mastery. Explore the curated portfolio series below.
+</p> </div> </div> </section> <div class="h-[300dvh] md:h-[400dvh]"></div> <section id="section-scan" class="w-full h-[calc((5/4)*(4*var(--scan-element-height)+2*var(--scan-padding-y)-20dvh))] relative"> <div class="w-full h-[100dvh] flex justify-center items-center sticky top-0 z-20"> <div class="w-full design-grid px-[var(--grid-gap)]"> <div id="scan-element" class="col-start-2 col-end-12 md:col-start-4 md:col-end-10 aspect-[3/2]" style="translate: none; rotate: none; scale: none; transform: scale(0.6667, 0.6667);"></div> </div> <div class="absolute left-0 bottom-0 w-full h-[var(--scan-padding-y)] bg-dark1"></div> </div> <div id="scan-steps" class="h-[100%] w-full absolute top-0 z-10"> <div class="h-[calc((100%-100dvh)*0.2)]"></div> <div class="h-[calc((100%-100dvh)*0.8+100dvh)] flex flex-col py-[var(--scan-padding-y)] relative"> <div class="sticky top-[var(--scan-padding-y)] w-full z-50"> <div class="absolute top-0 left-0 w-[calc(2*var(--column-width)+3*var(--grid-gap))] bg-dark1 z-50 h-[var(--scan-element-height)] origin-top invisible md:visible" id="scan-data-mask"></div> </div> <div class="flex-1 top-[var(--scan-padding-y)] sticky w-full px-[var(--grid-gap)] text-body text-orange1 flex flex-col z-10"> <div class="flex-1 md:hidden"></div> <div class="design-grid w-full"> <p class="col-start-2 col-end-13 md:col-end-4 font-inter font-semibold capitalize bg-dark1 relative"> Raw Negative </p> </div> </div> <div class="flex-1 top-[var(--scan-padding-y)] sticky w-full px-[var(--grid-gap)] text-body text-orange1 flex flex-col z-10"> <div class="flex-1 md:hidden"></div> <div class="design-grid w-full"> <p class="col-start-2 col-end-13 md:col-end-4 font-inter font-semibold capitalize bg-dark1 relative"> Density Balanced </p> </div> </div> <div class="flex-1 top-[var(--scan-padding-y)] sticky w-full px-[var(--grid-gap)] text-body text-orange1 flex flex-col z-10"> <div class="flex-1 md:hidden"></div> <div class="design-grid w-full"> <p class="col-start-2 col-end-13 md:col-end-4 font-inter font-semibold capitalize bg-dark1 relative"> Color Inversion </p> </div> </div> <div class="flex-1 top-[var(--scan-padding-y)] sticky w-full px-[var(--grid-gap)] text-body text-orange1 flex flex-col z-10"> <div class="flex-1 md:hidden"></div> <div class="design-grid w-full"> <p class="col-start-2 col-end-13 md:col-end-4 font-inter font-semibold capitalize bg-dark1 relative"> Master Fine Art Print </p> </div> </div> </div> </div> </section> </div> <main id="content" class="relative z-[19]"> <section id="section-camera" class="h-[700vh] p-[calc(var(--s)*20)] relative flex flex-col"> <div id="camera-section-mask" class="absolute top-0 left-0 w-full h-[calc(100%+100dvh)] bg-dark1 invisible" style="opacity: 0; visibility: inherit;"></div> <div class="h-[450vh]"> <div class="h-[250vh]"> <div class="pt-[calc(var(--s)*100)] flex-1"> <span class="uppercase w-full font-bold text-[10.55vw] leading-[100%] flex justify-between opacity-0 whitespace-nowrap"> <span class="block">Julian</span> <span class="block">Vance</span> </span> <div class="mt-[30vmax]"> <!-- <div class={clsx("design-grid", behindCanvas && "invisible")}>
+    <div
+      class="col-start-2 md:col-end-4 col-end-6 text-md md:text-body text-light1"
+      data-animation={behindCanvas ? undefined : "paragraph"}
+    >
+      <p>
+        In September 1971, Canon released the F-1, forever changing the
+        landscape of professional photography. This flagship SLR camera
+        represented Canon's bold entry into the professional market, challenging
+        the dominance of Nikon with extraordinary build quality, reliability,
+        and a comprehensive system of interchangeable components.
+      </p>
+    </div>
+  </div> --> <div class="flex flex-col gap-[calc(var(--s)*300)] md:gap-[calc(var(--s)*400)]"> <div class="design-grid w-full"> <div class="text-body text-light1 row-start-1 row-end-2 relative col-start-2 col-end-6 md:col-end-4" data-animation="paragraph"> <p class="w-full sm:absolute top-0 left-0" aria-label="Rooted in the tactile discipline of analog photography, my work celebrates unscripted human emotion, natural light, and quiet permanence. Through all-mechanical bodies and vintage prime glass, every shutter actuation is a deliberate commitment to seeing the world without digital noise.">Rooted in the tactile discipline of analog photography, my work celebrates unscripted human emotion, natural light, and quiet permanence. Through all-mechanical bodies and vintage prime glass, every shutter actuation is a deliberate commitment to seeing the world without digital noise.</p> </div> <div class="text-sm text-orange1 row-start-1 row-end-2 font-inter font-semibold col-start-7 col-end-13 md:col-end-12"> <span class="flex items-center capitalize w-full opacity-0 transition-opacity duration-300 gap-[calc(var(--s)*20)]"> <span class="block border-b border-dashed border-dark2 flex-1 h-[1px]"></span> <span class="block">pentaprism</span>  </span> </div> </div><div class="design-grid w-full mt-[calc(var(--s)*100)]"> <div class="text-body text-light1 row-start-1 row-end-2 relative col-start-8 md:col-start-10 col-end-13 md:col-end-12 mt-[calc(var(--s)*64)] md:mt-0" data-animation="paragraph"> <p class="w-full sm:absolute top-0 left-0" aria-label="Based between Tokyo and London, I specialize in editorial portraiture, street documentary, and architectural studies worldwide. Guided by classical darkroom craftsmanship and patient observation, I create enduring visual narratives designed to outlast transient digital trends.">Based between Tokyo and London, I specialize in editorial portraiture, street documentary, and architectural studies worldwide. Guided by classical darkroom craftsmanship and patient observation, I create enduring visual narratives designed to outlast transient digital trends.</p> </div> <div class="text-sm text-orange1 row-start-1 row-end-2 font-inter font-semibold col-start-1 md:col-start-2 col-end-7"> <span class="flex items-center capitalize w-full opacity-0 transition-opacity duration-300 gap-[calc(var(--s)*20)]">  <span class="block">focus screen</span> <span class="block border-b border-dashed border-dark2 flex-1 h-[1px]"></span> </span> </div> </div><div class="design-grid w-full">  <div class="text-sm text-orange1 row-start-1 row-end-2 font-inter font-semibold col-start-1 md:col-start-2 col-end-7"> <span class="flex items-center capitalize w-full opacity-0 transition-opacity duration-300 gap-[calc(var(--s)*20)]">  <span class="block">focus screen box</span> <span class="block border-b border-dashed border-dark2 flex-1 h-[1px]"></span> </span> </div> </div> </div> </div> </div> </div> </div> </section> <div class="fixed w-full left-0 top-[20vh] md:top-[50vh] translate-y-[-50%]"> <div class="design-grid w-full items-center opacity-0 transition-opacity duration-300 px-[var(--grid-gap)]" data-camera-cta-text=""> <div class="col-start-1 col-end-3 md:col-end-2 relative hidden md:block"> <p class="text-sm text-light1">
+Explore the gear:<br>Canon F-1 system
+</p> </div> <div class="col-start-3 md:col-start-2 md:col-end-4 col-end-6 h-0 border-b border-dashed border-dark2 hidden md:block"></div> </div> </div> <div class="fixed z-[-1] w-[25vw] md:w-[30vw] lg:w-[40vw] top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%] pointer-events-none invisible" id="camera-scaler"></div> <div class="fixed bottom-[calc(var(--s)*20)] px-[var(--grid-gap)] design-grid w-full pointer-events-none opacity-0 transition-opacity duration-300" id="part-viewer-container"> <div class="text-sm pb-[calc(var(--s)*8)] col-start-1 col-end-6 md:col-start-10 md:col-end-13 pointer-events-auto"> <p id="part-viewer-name" class="text-orange1 font-inter font-semibold capitalize"></p> <p id="part-viewer-description" class="text-sm text-light1 mt-[calc(var(--s)*12)]"></p> </div> <div class="col-start-8 md:col-start-10 col-end-13"> <div id="part-viewer" class="aspect-square relative w-full min-w-full"> <div class="border-dark2 h-[calc(var(--s)*32)] w-[calc(var(--s)*32)] absolute border-t border-l top-0 left-0"></div> <div class="border-dark2 h-[calc(var(--s)*32)] w-[calc(var(--s)*32)] absolute border-r border-t top-0 right-0"></div> <div class="border-dark2 h-[calc(var(--s)*32)] w-[calc(var(--s)*32)] absolute border-l border-b bottom-0 left-0 hidden md:block"></div> </div> </div> </div> <div class="h-[100vh]"></div> <section id="section-film" class="px-[var(--grid-gap)]"> <div class="design-grid text-body text-light1 h-full pb-[10vmax] gap-y-[calc(var(--s)*120)] md:gap-y-0 visible"> <div class="md:col-start-2 md:col-end-5 col-start-1 col-end-7 row-start-1" data-animation="paragraph" data-animation-threshold="-100px"> <p aria-label="Film demands anticipation. With thirty-six frames per roll and no digital preview screen, analog photography requires complete presence with the subject. Each frame is an archival physical record formed by silver halide crystals responding to living light.">Film demands anticipation. With thirty-six frames per roll and no digital preview screen, analog photography requires complete presence with the subject. Each frame is an archival physical record formed by silver halide crystals responding to living light.</p> </div> <div class="col-start-7 col-end-13 md:col-start-9 md:col-end-12 row-start-2"> <div class="flex flex-col gap-[calc(var(--s)*60)]"> <div data-animation="paragraph" data-animation-threshold="-100px"> <p aria-label="Every project dictates its own emulsion. From the gentle skin tones of Kodak Portra to the dramatic silver grain of Ilford HP5, my choice of film stock establishes the color grade and emotional climate of each commission before shooting even begins.">Every project dictates its own emulsion. From the gentle skin tones of Kodak Portra to the dramatic silver grain of Ilford HP5, my choice of film stock establishes the color grade and emotional climate of each commission before shooting even begins.</p> </div> <div class="flex flex-col text-sm col-start-1 col-end-5"> <div class="grid grid-cols-5 py-[calc(var(--s)*20)] font-semibold font-inter"> <p class="col-start-2 col-end-5">Types of Photography</p> <p class="col-start-5 col-end-6 justify-self-end">Cost</p> </div> <div class="relative"> <div data-animated-line="true" class="absolute top-0 left-0 w-full h-[1px] bg-dark2"></div> <div class="relative py-[calc(var(--s)*20)] grid grid-cols-5 items-center"> <p class="text-sm col-start-1 col-end-2 text-dark2"> 01.
+</p> <p class="col-start-2 col-end-5">Editorial Portraits</p> <p class="col-start-5 col-end-6 justify-self-end"> $450 </p> <div data-animated-line="true" class="absolute bottom-0 left-0 w-full h-[1px] bg-dark2"></div> </div><div class="relative py-[calc(var(--s)*20)] grid grid-cols-5 items-center"> <p class="text-sm col-start-1 col-end-2 text-dark2"> 02.
+</p> <p class="col-start-2 col-end-5">Monochrome Street</p> <p class="col-start-5 col-end-6 justify-self-end"> $350 </p> <div data-animated-line="true" class="absolute bottom-0 left-0 w-full h-[1px] bg-dark2"></div> </div><div class="relative py-[calc(var(--s)*20)] grid grid-cols-5 items-center"> <p class="text-sm col-start-1 col-end-2 text-dark2"> 03.
+</p> <p class="col-start-2 col-end-5">Landscape & Fine Art</p> <p class="col-start-5 col-end-6 justify-self-end"> $550 </p> <div data-animated-line="true" class="absolute bottom-0 left-0 w-full h-[1px] bg-dark2"></div> </div><div class="relative py-[calc(var(--s)*20)] grid grid-cols-5 items-center"> <p class="text-sm col-start-1 col-end-2 text-dark2"> 04.
+</p> <p class="col-start-2 col-end-5">Documentary & Travel</p> <p class="col-start-5 col-end-6 justify-self-end"> $750 </p> <div data-animated-line="true" class="absolute bottom-0 left-0 w-full h-[1px] bg-dark2"></div> </div><div class="relative py-[calc(var(--s)*20)] grid grid-cols-5 items-center"> <p class="text-sm col-start-1 col-end-2 text-dark2"> 05.
+</p> <p class="col-start-2 col-end-5">Twilight & Nocturne</p> <p class="col-start-5 col-end-6 justify-self-end"> $850 </p> <div data-animated-line="true" class="absolute bottom-0 left-0 w-full h-[1px] bg-dark2"></div> </div> </div> </div> </div> </div> <div class="col-start-1 col-end-7 md:col-start-2 md:col-end-5 row-start-3 md:row-start-2 md:mt-[30vmax]" data-animation="paragraph" data-animation-threshold="-100px"> <p aria-label="Every photograph is a delicate synthesis of light, intention, and chemistry. From the silent canals of Venice to the nocturnal glow of Kyoto, each frame represents an archival dedication to analog mastery. Explore the curated portfolio series below.">Every photograph is a delicate synthesis of light, intention, and chemistry. From the silent canals of Venice to the nocturnal glow of Kyoto, each frame represents an archival dedication to analog mastery. Explore the curated portfolio series below.</p> </div> </div> </section> <div class="fixed z-[-1] w-[30vw] lg:w-[40vw] top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%] pointer-events-none invisible" id="film-scaler"></div> <section id="section-film-layers" class="px-[var(--grid-gap)] h-[300dvh] md:h-[400dvh] relative"> <div class="w-full h-[100dvh] flex flex-col justify-center sticky top-0"> <div class="w-full design-grid"> <div class="film-layer-card col-start-1 md:col-start-3 col-span-2 md:col-span-1"> <div class="w-full h-[calc(2*var(--column-width)*tan(45)+4*var(--column-width)*2/3)] md:h-[calc(var(--column-width)*tan(45)+var(--column-width)*2/3)]"> <div class="w-full aspect-[3/2] -skew-y-[45deg] origin-top-right scale-y-[2]" data-layer-image="" style="translate: none; rotate: none; scale: none; transform: translate(-100%, 0%) rotate(-45deg) skew(-45deg, 0deg) scale(1.41421, 1.41421); opacity: 0;"> <img src="./35mm_files/film-base.jpg" alt="Venezia at Dawn" class="block"> </div> </div> <div data-layer-text="" class="flex flex-col items-center" style="opacity: 0;"> <div class="h-[calc(var(--s)*96)] border-l border-dashed border-dark2 w-0"></div> <p class="text-white text-sm text-orange1 text-center mt-[calc(var(--s)*16)] font-inter font-semibold capitalize"> Venezia at Dawn </p> </div> </div><div class="film-layer-card col-start-4 hidden md:block col-span-2 md:col-span-1"> <div class="w-full h-[calc(2*var(--column-width)*tan(45)+4*var(--column-width)*2/3)] md:h-[calc(var(--column-width)*tan(45)+var(--column-width)*2/3)]"> <div class="w-full aspect-[3/2] -skew-y-[45deg] origin-top-right scale-y-[2]" data-layer-image="" style="translate: none; rotate: none; scale: none; transform: translate(-100%, 0%) rotate(-45deg) skew(-45deg, 0deg) scale(1.41421, 1.41421); opacity: 0;"> <img src="./35mm_files/subbing-layer.jpg" alt="Silhouettes in Motion" class="block"> </div> </div> <div data-layer-text="" class="flex flex-col items-center" style="opacity: 0;"> <div class="h-[calc(var(--s)*96)] border-l border-dashed border-dark2 w-0"></div> <p class="text-white text-sm text-orange1 text-center mt-[calc(var(--s)*16)] font-inter font-semibold capitalize"> Silhouettes in Motion </p> </div> </div><div class="film-layer-card col-staer-3 md:col-start-5 col-span-2 md:col-span-1"> <div class="w-full h-[calc(2*var(--column-width)*tan(45)+4*var(--column-width)*2/3)] md:h-[calc(var(--column-width)*tan(45)+var(--column-width)*2/3)]"> <div class="w-full aspect-[3/2] -skew-y-[45deg] origin-top-right scale-y-[2]" data-layer-image="" style="translate: none; rotate: none; scale: none; transform: translate(-100%, 0%) rotate(-45deg) skew(-45deg, 0deg) scale(1.41421, 1.41421); opacity: 0;"> <img src="./35mm_files/red-light-sensitive-layer.jpg" alt="The Red Room" class="block"> </div> </div> <div data-layer-text="" class="flex flex-col items-center" style="opacity: 0;"> <div class="h-[calc(var(--s)*96)] border-l border-dashed border-dark2 w-0"></div> <p class="text-white text-sm text-orange1 text-center mt-[calc(var(--s)*16)] font-inter font-semibold capitalize"> The Red Room </p> </div> </div><div class="film-layer-card col-start-6 hidden md:block col-span-2 md:col-span-1"> <div class="w-full h-[calc(2*var(--column-width)*tan(45)+4*var(--column-width)*2/3)] md:h-[calc(var(--column-width)*tan(45)+var(--column-width)*2/3)]"> <div class="w-full aspect-[3/2] -skew-y-[45deg] origin-top-right scale-y-[2]" data-layer-image="" style="translate: none; rotate: none; scale: none; transform: translate(-100%, 0%) rotate(-45deg) skew(-45deg, 0deg) scale(1.41421, 1.41421); opacity: 0;"> <img src="./35mm_files/green-light-sensitive-layer.jpg" alt="Highlands Mist" class="block"> </div> </div> <div data-layer-text="" class="flex flex-col items-center" style="opacity: 0;"> <div class="h-[calc(var(--s)*96)] border-l border-dashed border-dark2 w-0"></div> <p class="text-white text-sm text-orange1 text-center mt-[calc(var(--s)*16)] font-inter font-semibold capitalize"> Highlands Mist </p> </div> </div><div class="film-layer-card col-start-5 md:col-start-7 col-span-2 md:col-span-1"> <div class="w-full h-[calc(2*var(--column-width)*tan(45)+4*var(--column-width)*2/3)] md:h-[calc(var(--column-width)*tan(45)+var(--column-width)*2/3)]"> <div class="w-full aspect-[3/2] -skew-y-[45deg] origin-top-right scale-y-[2]" data-layer-image="" style="translate: none; rotate: none; scale: none; transform: translate(-100%, 0%) rotate(-45deg) skew(-45deg, 0deg) scale(1.41421, 1.41421); opacity: 0;"> <img src="./35mm_files/yellow-filter.jpg" alt="Golden Hour Mirage" class="block"> </div> </div> <div data-layer-text="" class="flex flex-col items-center" style="opacity: 0;"> <div class="h-[calc(var(--s)*96)] border-l border-dashed border-dark2 w-0"></div> <p class="text-white text-sm text-orange1 text-center mt-[calc(var(--s)*16)] font-inter font-semibold capitalize"> Golden Hour Mirage </p> </div> </div><div class="film-layer-card col-start-7 md:col-start-8 col-span-2 md:col-span-1"> <div class="w-full h-[calc(2*var(--column-width)*tan(45)+4*var(--column-width)*2/3)] md:h-[calc(var(--column-width)*tan(45)+var(--column-width)*2/3)]"> <div class="w-full aspect-[3/2] -skew-y-[45deg] origin-top-right scale-y-[2]" data-layer-image="" style="translate: none; rotate: none; scale: none; transform: translate(-100%, 0%) rotate(-45deg) skew(-45deg, 0deg) scale(1.41421, 1.41421); opacity: 0;"> <img src="./35mm_files/blue-light-sensitive-layer.jpg" alt="Midnight in Kyoto" class="block"> </div> </div> <div data-layer-text="" class="flex flex-col items-center" style="opacity: 0;"> <div class="h-[calc(var(--s)*96)] border-l border-dashed border-dark2 w-0"></div> <p class="text-white text-sm text-orange1 text-center mt-[calc(var(--s)*16)] font-inter font-semibold capitalize"> Midnight in Kyoto </p> </div> </div><div class="film-layer-card col-start-9 col-span-2 md:col-span-1"> <div class="w-full h-[calc(2*var(--column-width)*tan(45)+4*var(--column-width)*2/3)] md:h-[calc(var(--column-width)*tan(45)+var(--column-width)*2/3)]"> <div class="w-full aspect-[3/2] -skew-y-[45deg] origin-top-right scale-y-[2]" data-layer-image="" style="translate: none; rotate: none; scale: none; transform: translate(-100%, 0%) rotate(-45deg) skew(-45deg, 0deg) scale(1.41421, 1.41421); opacity: 0;"> <img src="./35mm_files/uv-filter.jpg" alt="Coastal Reverie" class="block"> </div> </div> <div data-layer-text="" class="flex flex-col items-center" style="opacity: 0;"> <div class="h-[calc(var(--s)*96)] border-l border-dashed border-dark2 w-0"></div> <p class="text-white text-sm text-orange1 text-center mt-[calc(var(--s)*16)] font-inter font-semibold capitalize"> Coastal Reverie </p> </div> </div><div class="film-layer-card col-start-11 md:col-start-10 col-span-2 md:col-span-1"> <div class="w-full h-[calc(2*var(--column-width)*tan(45)+4*var(--column-width)*2/3)] md:h-[calc(var(--column-width)*tan(45)+var(--column-width)*2/3)]"> <div class="w-full aspect-[3/2] -skew-y-[45deg] origin-top-right scale-y-[2]" data-layer-image="" style="translate: none; rotate: none; scale: none; transform: translate(-100%, 0%) rotate(-45deg) skew(-45deg, 0deg) scale(1.41421, 1.41421); opacity: 0;"> <img src="./35mm_files/6.jpg" alt="Master Fine Art Print" class="block"> </div> </div> <div data-layer-text="" class="flex flex-col items-center" style="opacity: 0;"> <div class="h-[calc(var(--s)*96)] border-l border-dashed border-dark2 w-0"></div> <p class="text-white text-sm text-orange1 text-center mt-[calc(var(--s)*16)] font-inter font-semibold capitalize"> Master Fine Art Print </p> </div> </div> </div> </div> </section> <!-- <Scan /> --> <div class="w-full h-[calc((5/4)*(4*var(--scan-element-height)+2*var(--scan-padding-y)-20dvh))] relative"></div> <footer id="footer" class="h-[100dvh] relative flex flex-col justify-end p-[calc(var(--s)*30)] md:p-[calc(var(--s)*50)] z-20 pointer-events-auto">
+      <div class="design-grid w-full pb-[calc(var(--s)*40)] md:pb-[calc(var(--s)*60)]">
+        <div class="col-start-1 col-end-13 md:col-start-2 md:col-end-11 text-light1">
+          <p class="text-xs uppercase tracking-[0.25em] text-orange1 font-inter font-semibold mb-3">Inquiries &amp; Commissions</p>
+          <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">Let's craft something timeless.</h2>
+          <p class="text-sm md:text-base text-light1/80 max-w-xl mb-6 leading-relaxed">Available worldwide for editorial assignments, private portraiture, and archival fine art prints. Inquire for bespoke commissions.</p>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 pt-4 pb-6 border-t border-b border-dark2 text-xs md:text-sm font-inter">
+            <div>
+              <p class="text-orange1 uppercase tracking-wider text-[11px] font-semibold mb-1">Direct Inquiries</p>
+              <a href="mailto:contact@julianvance.photo" class="text-light1 hover:text-white transition-colors block font-medium">contact@julianvance.photo</a>
+              <a href="tel:+442079460192" class="text-light1/60 hover:text-light1 transition-colors block mt-0.5">+44 (0)20 7946 0192</a>
+            </div>
+            <div>
+              <p class="text-orange1 uppercase tracking-wider text-[11px] font-semibold mb-1">Studio Bases</p>
+              <p class="text-light1 font-medium">Tokyo &bull; London</p>
+              <p class="text-light1/60 mt-0.5">Worldwide on Location</p>
+            </div>
+            <div>
+              <p class="text-orange1 uppercase tracking-wider text-[11px] font-semibold mb-1">Availability &amp; Social</p>
+              <p class="text-light1 font-medium">Booking Q3 / Q4 Commissions</p>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="text-light1/60 hover:text-white transition-colors block mt-0.5">@julianvance.film</a>
+            </div>
+          </div>
+          
+          <div class="flex flex-wrap items-center justify-between gap-3 text-xs text-light1/50 pt-4 font-inter">
+            <span>&copy; 2026 Julian Vance. All rights reserved.</span>
+            <span>Archival Gelatin Silver &amp; C-Type Prints</span>
+          </div>
+        </div>
+      </div>
+    </footer> </main> <canvas class="z-10" id="webgl" data-engine="three.js r168" width="1920" height="868" style="width: 1536px; height: 695px;"></canvas> </div>  </div> </div> <div class="fixed top-0 left-0 z-[99] w-full h-[100dvh]" id="preloader"> <div class="w-full h-full bg-dark1 p-[calc(var(--s)*20)] relative flex justify-center items-center text-sm lg:text-xsm text-dark2"> <p data-preloader-count="">0%</p> <div class="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] aspect-square" style="height: 6vmax;" data-preloader-center=""> <div class="h-[calc(var(--s)*20)] w-[calc(var(--s)*20)] border-l border-t border-dark2 absolute top-0 left-0"></div> <div class="h-[calc(var(--s)*20)] w-[calc(var(--s)*20)] border-l border-b border-dark2 absolute bottom-0 left-0"></div> <div class="h-[calc(var(--s)*20)] w-[calc(var(--s)*20)] border-t border-r border-dark2 absolute top-0 right-0"></div> <div class="h-[calc(var(--s)*20)] w-[calc(var(--s)*20)] border-b border-r border-dark2 absolute bottom-0 right-0"></div> </div> </div> </div> <script type="module" src="./index.js"></script> 
+<script>
+  // Mobile / touch preview support for film layers
+  document.addEventListener('DOMContentLoaded', () => {
+    const layerCards = document.querySelectorAll('.film-layer-card');
+    layerCards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        const wasActive = card.classList.contains('is-active');
+        layerCards.forEach(c => c.classList.remove('is-active'));
+        if (!wasActive) card.classList.add('is-active');
+      });
+    });
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.film-layer-card')) {
+        layerCards.forEach(c => c.classList.remove('is-active'));
+      }
+    });
+  });
+</script> 
+<div class="lil-gui root allow-touch-styles autoPlace" style="display: none;"><div class="title" role="button" aria-expanded="true" tabindex="0">Controls</div><div class="children"><div class="controller number hasSlider"><div class="name" id="lil-gui-name-1">film scale</div><div class="widget"><div class="slider"><div class="fill" style="width: 33.3333%;"></div></div><input type="text" aria-labelledby="lil-gui-name-1"></div></div></div></div>
+                    <div class="segments-box">
+                        <div data-range="1-20" class="segment"><span></span></div>
+                        <div data-range="21-40" class="segment"><span></span></div>
+                        <div data-range="41-60" class="segment"><span></span></div>
+                        <div data-range="61-80" class="segment"><span></span></div>
+                        <div data-range="81-100" class="segment"><span></span></div>
+                    </div>
+                </div></body></html>

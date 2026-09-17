@@ -1,0 +1,20 @@
+{
+  "name": "analog-editorial-portfolio",
+  "version": "1.0.0",
+  "description": "Personal 3D portfolio and analog photography showcase of Julian Vance",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "serve": "node server.js"
+  },
+  "keywords": [
+    "threejs",
+    "webgl",
+    "35mm",
+    "photography",
+    "canon-f1",
+    "film"
+  ],
+  "author": "",
+  "license": "ISC"
+}
