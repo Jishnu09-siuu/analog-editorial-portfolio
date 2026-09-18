@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <linearGradient id="lensGrad" x1="16" y1="16" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2a2a2a" />
+      <stop offset="50%" stop-color="#141414" />
+      <stop offset="100%" stop-color="#0a0a0a" />
+    </linearGradient>
+    <linearGradient id="amberGlow" x1="24" y1="24" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#e08a28" />
+      <stop offset="100%" stop-color="#bf6d15" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle for high contrast in browser tabs (both dark and light themes) -->
+  <rect width="64" height="64" rx="14" fill="#141414" />
+
+  <!-- Camera Body Silhouette -->
+  <!-- Top plate stepped rangefinder body -->
+  <path d="M12 24C12 21.7909 13.7909 20 16 20H23L25.5 16.5C26.1 15.6 27.1 15 28.2 15H35.8C36.9 15 37.9 15.6 38.5 16.5L41 20H48C50.2091 20 52 21.7909 52 24V47C52 49.2091 50.2091 51 48 51H16C13.7909 51 12 49.2091 12 47V24Z" 
+        stroke="#E6E6E6" stroke-width="2.5" stroke-linejoin="round" fill="#1c1c1c" />
+
+  <!-- Shutter Button & Dial Accents -->
+  <line x1="19" y1="17" x2="23" y2="17" stroke="#E6E6E6" stroke-width="2" stroke-linecap="round" />
+  <circle cx="45" cy="17.5" r="1.5" fill="#bf6d15" />
+
+  <!-- Rangefinder Viewfinder Window -->
+  <rect x="17" y="24" width="6" height="4" rx="1" fill="#E6E6E6" opacity="0.85" />
+  <circle cx="45" cy="26" r="2" fill="#E6E6E6" opacity="0.4" />
+
+  <!-- Outer Lens Ring -->
+  <circle cx="32" cy="35.5" r="12" fill="url(#lensGrad)" stroke="#E6E6E6" stroke-width="2" />
+  <circle cx="32" cy="35.5" r="9.5" stroke="#bf6d15" stroke-width="1.2" opacity="0.9" />
+
+  <!-- Aperture Blades (Camera Iris) -->
+  <g stroke="#E6E6E6" stroke-width="1.2" stroke-linecap="round" opacity="0.75">
+    <!-- 6 interlocking aperture iris blades -->
+    <path d="M32 28.5 L36.5 33.5" />
+    <path d="M36.5 33.5 L34.5 39.5" />
+    <path d="M34.5 39.5 L28.5 40" />
+    <path d="M28.5 40 L26 35" />
+    <path d="M26 35 L29.5 30" />
+    <path d="M29.5 30 L35 30.5" />
+  </g>
+
+  <!-- Central Lens Core Reflection -->
+  <circle cx="32" cy="35.5" r="3" fill="url(#amberGlow)" />
+  <circle cx="33.5" cy="34" r="1" fill="#FFF" opacity="0.8" />
+</svg>
