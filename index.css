@@ -112,13 +112,152 @@
   transition: border-color 0.4s ease;
 }
 
-/* Mobile responsive scaling */
+/* ==========================================================================
+   Responsive Typography & Mobile Enhancements (Preserving Core Layout Grid)
+   ========================================================================== */
+
+/* Accessible font sizes with guaranteed minimum readability on mobile */
+.text-body, .md\:text-body {
+  font-size: max(calc(var(--s) * 13), 13.5px) !important;
+  line-height: 1.65 !important;
+}
+
+.text-sm {
+  font-size: max(calc(var(--s) * 12), 12px) !important;
+  line-height: 1.5 !important;
+}
+
+.text-md {
+  font-size: max(calc(var(--s) * 14), 14.5px) !important;
+  line-height: 1.55 !important;
+}
+
+.lg\:text-xsm {
+  font-size: max(calc(var(--s) * 11), 11px) !important;
+}
+
+/* Prevent accidental horizontal overflow */
+body, html {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+
+/* Mobile film layer card zoom (bounded to avoid off-screen overflow) */
 @media screen and (max-width: 767px) {
+  /* Mobile Hero Section: Keep hero section clean (only Julian Vance title + 3D Camera visible) */
+  #section-camera .mt-mobile-hero-offset,
+  #section-camera .mt-\[30vmax\],
+  .absolute.w-full.z-\[5\] .mt-mobile-hero-offset,
+  .absolute.w-full.z-\[5\] .mt-\[30vmax\] {
+    margin-top: 100vh !important;
+    margin-top: 100dvh !important;
+  }
+
   #section-film-layers.layers-all-shown .film-layer-card:hover [data-layer-image],
   #section-film-layers.layers-all-shown .film-layer-card.is-active [data-layer-image],
   #section-film-layers.layers-all-shown [data-layer-image]:hover {
-    transform: translateY(-60px) rotate(0deg) skew(0deg, 0deg) scale(2.6) !important;
+    transform: translateY(-20px) rotate(0deg) skew(0deg, 0deg) scale(1.85) !important;
+    transform-origin: center center !important;
+    box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(191, 109, 21, 0.5) !important;
+  }
+  
+  /* Film layers side-by-side showcase scaling on mobile */
+  #section-film-layers .w-full.design-grid {
+    transform: scale(0.84);
+    transform-origin: center center;
+  }
+  #section-film-layers .h-\[calc\(var\(--s\)\*96\)\] {
+    height: calc(var(--s) * 32) !important;
+  }
+  #section-film-layers [data-layer-text] p {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    margin-top: calc(var(--s) * 6) !important;
+    white-space: nowrap !important;
+  }
+
+  /* Footer layout optimization for mobile to give ample space for falling film boxes/rolls */
+  #footer {
+    padding: calc(var(--s) * 16) !important;
+    padding-bottom: max(calc(var(--s) * 20), env(safe-area-inset-bottom, 20px)) !important;
+  }
+  #footer .design-grid {
+    padding-bottom: calc(var(--s) * 10) !important;
+  }
+  #footer h2 {
+    font-size: 1.55rem !important;
+    line-height: 1.15 !important;
+    margin-bottom: 0.5rem !important;
+  }
+  #footer p.text-light1\/80 {
+    font-size: 0.8rem !important;
+    margin-bottom: 0.75rem !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  #footer .grid.grid-cols-1.sm\:grid-cols-3 {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.6rem !important;
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
+  }
+  #footer .grid.grid-cols-1.sm\:grid-cols-3 > div:nth-child(3) {
+    grid-column: 1 / -1 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  #footer .grid.grid-cols-1.sm\:grid-cols-3 > div:nth-child(3) a {
+    margin-top: 0 !important;
+  }
+  #footer .text-light1\/50 {
+    font-size: 0.7rem !important;
+    padding-top: 0.5rem !important;
+  }
+  
+  /* Part Viewer mobile dock alignment */
+  #part-viewer-container {
+    bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
   }
 }
+
+/* Extra small phone refinement for film layers */
+@media screen and (max-width: 480px) {
+  #section-film-layers .w-full.design-grid {
+    transform: scale(0.74);
+    transform-origin: center center;
+  }
+  #section-film-layers [data-layer-text] p {
+    font-size: 9px !important;
+  }
+}
+
+/* Pricing Table layout optimization for mobile */
+@media screen and (max-width: 640px) {
+  #section-film .grid-cols-5 {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+  #section-film .grid-cols-5 > p:first-child {
+    display: none !important;
+  }
+  #section-film .grid-cols-5 > p:nth-child(2) {
+    flex: 1 1 auto !important;
+    font-size: 13px !important;
+  }
+  #section-film .grid-cols-5 > p:last-child {
+    flex: 0 0 auto !important;
+    font-size: 13px !important;
+    color: rgb(var(--color-orange-1)) !important;
+    font-weight: 700 !important;
+  }
+}
+
+
 
 

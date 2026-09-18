@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 3000;
+let PORT = parseInt(process.env.PORT, 10) || 3000;
 
 const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
@@ -33,6 +33,7 @@ const server = http.createServer((req, res) => {
 
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
+      console.log(`[404] ${req.method} ${req.url} -> ${filePath}`);
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.end('404 Not Found: ' + reqPath);
       return;
@@ -41,8 +42,11 @@ const server = http.createServer((req, res) => {
     const ext = path.extname(filePath).toLowerCase();
     const contentType = mimeTypes[ext] || 'application/octet-stream';
 
+    console.log(`[200] ${req.method} ${req.url} (${contentType})`);
+
     res.writeHead(200, {
       'Content-Type': contentType,
+      'Content-Length': stats.size,
       'Access-Control-Allow-Origin': '*',
       'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
       'Pragma': 'no-cache',
@@ -54,6 +58,20 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`);
+function startServer(portToTry) {
+  server.listen(portToTry, () => {
+    console.log(`Server running at http://localhost:${portToTry}/`);
+  });
+}
+
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.log(`Port ${PORT} in use, trying port ${PORT + 1}...`);
+    PORT += 1;
+    startServer(PORT);
+  } else {
+    console.error('Server error:', err);
+  }
 });
+
+startServer(PORT);
