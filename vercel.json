@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "name": "julianvance",
+  "framework": null,
+  "outputDirectory": ".",
   "cleanUrls": true,
   "headers": [
     {
